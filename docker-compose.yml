@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"  # Порт, на котором будет запущено ваше Spring Boot приложение
+    depends_on:
+      - database  # Ваше приложение зависит от базы данных
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # Порт, на котором будет запущено ваше React.js приложение
+    command: npm start  
+
+
+  database:
+    image: postgres:latest  # Выберите соответствующий образ для вашей базы данных
+    environment:
+      POSTGRES_USER: postgress
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: psql
+    ports:
+      - "5432:5432"  # Порт для подключения к базе данных
+
+
